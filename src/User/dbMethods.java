@@ -30,6 +30,15 @@ public class dbMethods
 		}
 	}
 	
+	public static boolean validate(User user)
+	{
+		if(user.getName().length() > 4 && user.getEmail().contains("@") && user.getPass().length() > 7)
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	public static boolean login(String name, String pass)
 	{
 		try
@@ -90,21 +99,19 @@ public class dbMethods
 		}
 	}
 	
-	public static void addUser()
+	public static void addUser(User user)
 	{
 		try
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			Connection con = DriverManager.getConnection(conStr);
 			
-			String query = "Insert into person values (?, ?, ?, ?, ?)";
+			String query = "Insert into Users values (?, ?, ?)";
 			
 			PreparedStatement prepStmt = con.prepareStatement(query);
-			prepStmt.setString (1, "Bruger4");
-			prepStmt.setString (2, "Fjerde bruger");
-			prepStmt.setString (3, "Password4");
-			prepStmt.setInt (4, 0);
-			prepStmt.setString (5, "Bruger oprettet via Java.");
+			prepStmt.setString (1, user.getName());
+			prepStmt.setString (2, user.getEmail());
+			prepStmt.setString (3, user.getPass());
 			
 			prepStmt.execute();
 			
