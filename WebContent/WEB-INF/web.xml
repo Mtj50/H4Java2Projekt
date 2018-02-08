@@ -6,7 +6,7 @@
   <servlet>
     <servlet-name>createUser</servlet-name>
     <servlet-class>
- project.createUser
+ User.createUser
  </servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
