@@ -1,23 +1,49 @@
-<%@page import="Bruger.LoginUser"%>
-<%@  page import="java.io.*,java.util.*"%>
+<%@ page import="User.dbMethods"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<jsp id="user" class="Bruger.LoginUser" scope="session"></jsp>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
-<title>login</title>
-</head>
+<title>SaWoT Login</title>
 <body>
+<h1>SaWoT Login</h1>
 
-<h1><center>Give your login details</center></h1>
-<form method="post" action="check.jsp">
-Username:<input type="text" name="username" size="20" value="<%=Bruger.getUsername()%>" >       <br>
-Password:<input type="password" name="password" size="20" value=<%=Bruger.getPassword()%> ><br>
-<input type="submit">
+<form action="Login.jsp">
+Indtast Bruger Navn: <br />
+<input type="text" name="Name"/><br />
+Indtast Password: <br />
+<input type="password" name="Pass"/><br /><br />
+<input type=submit name="Login" value="Login"/>
 </form>
 
+<%
+
+String Name = " ";
+String Pwd = " ";
+Name = request.getParameter("Name");
+Pwd = request.getParameter("Pass");
+if (request.getParameter("Login") != null)
+{
+	if (Name != null && !Name.equals("") && Pwd != null && !Pwd.equals(""))
+	{
+		if (dbMethods.login(Name, Pwd))
+		{
+			session.setAttribute("LoggedIn", Name);
+			out.println("Logged in: " + Name);
+			response.sendRedirect("UserSite.jsp");
+			return;
+		}
+	}
+	else
+	{
+	session.removeAttribute("LoggedIn");
+	response.sendRedirect("Login.jsp");
+	return;
+	}
+}
+%>
+<br /><br />
+<a href="createUser.jsp">Not a user. Sign up now</a><br /><br />
 </body>
 </html>
