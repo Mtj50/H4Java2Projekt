@@ -10,7 +10,7 @@ import java.sql.Statement;
 
 public class dbMethods
 {
-	static String conStr = "jdbc:sqlserver://h4java2.database.windows.net:1433;database=Java2Project;user=H4Admin@h4java2;password={your_password_here};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+	static String conStr = "jdbc:sqlserver://h4java2.database.windows.net:1433;database=Java2Project;user=H4Admin@h4java2;password=Password1;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30";
 	
 	public static void main(String[] args)
 	{
@@ -30,17 +30,17 @@ public class dbMethods
 		}
 	}
 	
-	public static boolean login(String name, String pass)
+	public static boolean login(String Name, String pass)
 	{
 		try
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			Connection con = DriverManager.getConnection(conStr);
 			
-			String query = "Select * from Person WHERE Username = ? AND Pass = ?";
+			String query = "Select * from Person WHERE UserName = ? AND Password = ?";
 			PreparedStatement prepStmt = con.prepareStatement(query);
 			
-			prepStmt.setString(1, name);
+			prepStmt.setString(1, Name);
 			prepStmt.setString(2, pass);
 			
 			ResultSet rs = prepStmt.executeQuery();
