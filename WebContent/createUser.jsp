@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form method="post" action="createUser.jsp">
+<form method="post" action="createUser">
 <pre>
 Brugernavn:			<input type="text" name="username" /><br>
 Email:				<input type="text" name="email" /><br>
